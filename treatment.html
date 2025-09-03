@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correctify - Treatment</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary-color: #244c5a;
+            --secondary-color: #ffffff;
+            --text-color: #0c1a5f;
+            --bg-color: #f9f9f9;
+            --highlight-color: #d2acac;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
+            height: 50px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            color: var(--highlight-color);
+        }
+
+   
+
+        .accordion {
+            margin: 1rem 0;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .accordion-header {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            cursor: pointer;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: var(--highlight-color);
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 1rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .accordion-header i {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active i {
+            transform: rotate(180deg);
+        }
+
+        .accordion-header.active + .accordion-content {
+            display: block;
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html">
+                <img src="logo2.png" alt="Correctify Logo" class="logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="schedule.html">Schedule Appointment</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Treatment Section -->
+    <section class="section" id="treatmentSection">
+        <h2>Treatment Options</h2>
+        <p>Effective treatments for depression are available. Consult with a mental health professional for personalized options. Explore common approaches below:</p>
+
+        <!-- Accordion -->
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Therapy</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Description:</strong> Cognitive Behavioral Therapy (CBT), Interpersonal Therapy, or counseling sessions.</p>
+                    <p><strong>Key Benefits:</strong> Helps identify and change negative thought patterns, improves emotional regulation, and provides coping strategies.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Medications</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Description:</strong> Antidepressants prescribed by a licensed professional.</p>
+                    <p><strong>Key Benefits:</strong> Balances brain chemistry to alleviate symptoms of depression.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Lifestyle Changes</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Description:</strong> Regular exercise, a healthy diet, and mindfulness practices.</p>
+                    <p><strong>Key Benefits:</strong> Enhances overall well-being, reduces stress, and boosts mood naturally.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Support Groups</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Description:</strong> Connect with others who understand your journey.</p>
+                    <p><strong>Key Benefits:</strong> Provides emotional support, shared experiences, and reduces feelings of isolation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>
+            &copy; 2024 Correctify. All Rights Reserved. 
+            <a href="https://xhamster.com/" class="hidden-footer-link" target="_blank" rel="noopener noreferrer">
+                .
+            </a>
+        </p>
+    </footer>
+    <script>
+        // Accordion toggle
+        const accordions = document.querySelectorAll('.accordion-header');
+        accordions.forEach(header => {
+            header.addEventListener('click', () => {
+                const active = header.classList.contains('active');
+                document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active'));
+                document.querySelectorAll('.accordion-content').forEach(c => c.style.display = 'none');
+
+                if (!active) {
+                    header.classList.add('active');
+                    header.nextElementSibling.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

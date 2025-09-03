@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correctify - Video Call</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles for Video Call Section */
+        .videocall-now-section {
+            background-color: #f4f4f4;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .videocall-now-section h2 {
+            color: #1e3762;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .videocall-now-section p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .auth-container {
+            max-width: 400px;
+            margin: 20px auto;
+            text-align: left;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .videocall-frame {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #2575fc;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #004aad;
+        }
+
+        #videocall-container {
+            display: none;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html">
+                <img src="logo2.png" alt="Correctify Logo" class="logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="schedule.html" class="active">Schedule Appointment</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero videocall-hero" data-aos="fade-up">
+        <div class="hero-content">
+            <h1>Connect with a Professional</h1>
+            <p>Speak directly with a licensed therapist or counselor in a secure, private video session.</p>
+            <a href="#videocall-now" class="btn">Start Video Call Now</a>
+        </div>
+    </section>
+
+    <!-- Video Call Now Section -->
+    <section id="videocall-now" class="videocall-now-section">
+        <h2>Start Your Video Call Now</h2>
+        <p>Log in to access your secure video call session.</p>
+
+       <!-- Authentication Form -->
+<div class="auth-container" data-aos="zoom-in">
+    <form id="authForm" onsubmit="authenticateUser(event)">
+        <div class="form-group">
+            <label for="username">Enter Your Name:</label>
+            <input type="text" id="username" placeholder="Your Name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="access-code">Enter Access Code:</label>
+            <input type="password" id="access-code" placeholder="Access Code" required>
+        </div>
+
+        <button type="submit" class="btn">Authenticate</button>
+    </form>
+</div>
+
+ <!-- Video Call Container -->
+<div id="videocall-container">
+    <iframe
+        class="videocall-frame"
+        src=""
+        id="videocallFrame"
+        allow="camera; microphone; fullscreen"
+    ></iframe>
+    <button class="btn btn-end-call" id="endCallButton">End Call</button>
+</div>
+
+
+<footer>
+    <p>
+        &copy; 2024 Correctify. All Rights Reserved. 
+        <a href="https://xhamster.com/" class="hidden-footer-link" target="_blank" rel="noopener noreferrer">
+            .
+        </a>
+    </p>
+</footer>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  
+   
+    <script>
+        AOS.init();
+        let callStartTime;
+    
+        function authenticateUser(event) {
+            event.preventDefault();
+    
+            const username = document.getElementById('username').value.trim();
+            const accessCode = document.getElementById('access-code').value.trim();
+            const videoCallContainer = document.getElementById('videocall-container');
+            const videoCallFrame = document.getElementById('videocallFrame');
+    
+            // Mock Authentication: Replace this with real backend authentication logic
+            if (!username) {
+                alert('Please enter your name.');
+                return;
+            }
+            if (accessCode !== 'CORRECTIFY') {
+                alert('Invalid access code. Please try again.');
+                return;
+            }
+    
+            alert('Authentication successful with CORRECTIFY! You are now connected to the video call.');
+    
+            // Generate unique room for the user
+            const roomName = `CorrectifyRoom-${Math.random().toString(36).substr(2, 9)}`;
+            videoCallFrame.src = `https://meet.jit.si/${roomName}?userInfo.displayName=${encodeURIComponent(username)}`;
+    
+            // Display the video call iframe
+            videoCallContainer.style.display = 'block';
+    
+            // Track start time of the call
+            callStartTime = new Date();
+        }
+    
+        // Handle End Call
+        document.getElementById('endCallButton').addEventListener('click', () => {
+            const videoCallContainer = document.getElementById('videocall-container');
+            const videoCallFrame = document.getElementById('videocallFrame');
+    
+            // Confirm before ending the call
+            const confirmEnd = confirm('Are you sure you want to end the call?');
+            if (!confirmEnd) return;
+    
+            // Clear the iframe source to stop the call
+            videoCallFrame.src = '';
+            videoCallContainer.style.display = 'none';
+    
+            // Calculate and log the session duration
+            const callEndTime = new Date();
+            const sessionDuration = Math.floor((callEndTime - callStartTime) / 1000); // duration in seconds
+            alert(`You have ended the call. Session duration: ${sessionDuration} seconds.`);
+        });
+    </script>
+    
+</body>
+</html>
